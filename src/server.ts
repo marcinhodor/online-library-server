@@ -1,5 +1,5 @@
 import express from "express"
-import AuthController from "./auth/Auth.controller"
+import AuthController from "./auth/auth.controller"
 import cookieParser from "cookie-parser"
 
 const PORT = process.env.PORT || 3500
