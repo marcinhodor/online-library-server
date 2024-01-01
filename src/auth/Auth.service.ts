@@ -4,7 +4,7 @@ import bcrypt from "bcrypt"
 
 const prisma = new PrismaClient()
 
-export const handleNewUser = async (req: Request, res: Response) => {
+export const create = async (req: Request, res: Response) => {
   // get data from request body
   const { first_name, last_name, email, password } = req.body
   // validate if body data is complete
