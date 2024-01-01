@@ -1,7 +1,7 @@
 import express from "express"
-import { create } from "./Auth.service"
+import { register } from "./Auth.service"
 
 const router = express.Router()
-router.post("/register", create)
+router.post("/register", register)
 
 export default router
