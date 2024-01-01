@@ -1,5 +1,5 @@
 import express from "express"
-import registerRoute from "./routes/api/register"
+import registerRoute from "./routes/auth/register"
 import cookieParser from "cookie-parser"
 
 const PORT = process.env.PORT || 3500
