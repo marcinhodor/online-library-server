@@ -1,0 +1,7 @@
+-- AlterTable
+ALTER TABLE "Book" ALTER COLUMN "isbn" DROP NOT NULL,
+ALTER COLUMN "publication_year" DROP NOT NULL,
+ALTER COLUMN "original_title" DROP NOT NULL,
+ALTER COLUMN "language_code" DROP NOT NULL,
+ALTER COLUMN "average_rating" DROP NOT NULL,
+ALTER COLUMN "image_url" DROP NOT NULL;

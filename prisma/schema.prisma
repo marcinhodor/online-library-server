@@ -17,5 +17,19 @@ model User {
   email           String   @unique
   hashed_password String
   created_at      DateTime @default(now())
-  update_at       DateTime @updatedAt()
+  updated_at      DateTime @updatedAt()
+}
+
+model Book {
+  id               Int      @unique @default(autoincrement())
+  isbn             String?  @unique
+  authors          String
+  publication_year Int?
+  original_title   String?
+  title            String
+  language_code    String?
+  average_rating   Float?
+  image_url        String?
+  created_at       DateTime @default(now())
+  updated_at       DateTime @updatedAt()
 }
