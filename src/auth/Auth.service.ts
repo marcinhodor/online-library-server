@@ -3,18 +3,19 @@ import { PrismaClient } from "@prisma/client"
 import bcrypt from "bcrypt"
 import jwt from "jsonwebtoken"
 import { LoginDto, RegisterDto } from "./dto/auth.dto"
+import { matchedData, validationResult } from "express-validator"
 
 const prisma = new PrismaClient()
 
 export const register = async (req: Request, res: Response) => {
-  // get data from request body
-  const { first_name, last_name, email, password } = req.body as RegisterDto
-  // validate if body data is complete
-  if (!email || !password || !first_name || !last_name) {
-    return res.status(400).json({
-      error: "Body must contain email, password, first_name and last_name",
-    })
-  }
+  const result = validationResult(req)
+
+  if (!result.isEmpty()) res.status(400).json({ errors: result.array() })
+
+  const data = matchedData(req)
+
+  const { first_name, last_name, email, password } = data as RegisterDto
+
   // check if user already exists
   const duplicateUser = await prisma.user.findUnique({
     where: {
@@ -48,14 +49,13 @@ export const register = async (req: Request, res: Response) => {
 }
 
 export const login = async (req: Request, res: Response) => {
-  // get data from request body
-  const { email, password } = req.body as LoginDto
-  // validate if body data is complete
-  if (!email || !password) {
-    return res.status(400).json({
-      error: "Body must contain email and password",
-    })
-  }
+  const result = validationResult(req)
+
+  if (!result.isEmpty()) return res.status(400).send(result.array())
+
+  const data = matchedData(req)
+
+  const { email, password } = data as LoginDto
   // check if user exists
   const foundUser = await prisma.user.findUnique({
     where: {
