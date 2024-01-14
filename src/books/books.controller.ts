@@ -11,12 +11,9 @@ const router = express.Router()
 
 router
   .get("/", findAll)
-  .post("/", authGuard, checkSchema(createBookValidationSchema), create)
-
-router.get("/search", checkSchema(findBookValidationSchema), findByParams)
-
-router
+  .get("/search", checkSchema(findBookValidationSchema), findByParams)
   .get("/:id", authGuard, checkSchema(idValidationSchema), findOne)
+  .post("/", authGuard, checkSchema(createBookValidationSchema), create)
   .patch(
     "/:id",
     authGuard,

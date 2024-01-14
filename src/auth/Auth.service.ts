@@ -4,6 +4,7 @@ import bcrypt from "bcrypt"
 import jwt from "jsonwebtoken"
 import { LoginDto, RegisterDto } from "./dto/auth.dto"
 import { matchedData, validationResult } from "express-validator"
+import { signJWT } from "../utils/signJWT"
 
 const prisma = new PrismaClient()
 
@@ -73,14 +74,7 @@ export const login = async (req: Request, res: Response) => {
   if (!isPasswordCorrect) return res.sendStatus(401) // unauthorized
 
   // if user exists and password is correct, create jwt token
-  const token = jwt.sign(
-    {
-      id: foundUser.id,
-      email: foundUser.email,
-    },
-    process.env.JWT_SECRET as string,
-    { expiresIn: "3h" }
-  )
+  const token = signJWT(foundUser.id, foundUser.email)
 
   // return token in a cookie
   res.cookie("token", token, {
